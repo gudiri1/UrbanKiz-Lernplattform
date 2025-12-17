@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKiz Skill-Tree</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">UK</div>
+      <div class="brand-text">
+        <div class="title">UrbanKiz Skill-Tree</div>
+        <div class="subtitle">Skills → Basics → Elemente → Variationen → Kombis</div>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <div class="search">
+        <input id="searchInput" type="search" placeholder="Suchen (z. B. Slide, Frame, Basic 2) …" aria-label="Suchen" />
+        <button id="clearSearch" class="ghost" title="Suche löschen" aria-label="Suche löschen">×</button>
+      </div>
+
+      <div class="filters">
+        <label class="select">
+          <span>Rolle</span>
+          <select id="roleFilter">
+            <option value="all">Alle</option>
+            <option value="both">Both</option>
+            <option value="leader">Leader</option>
+            <option value="follower">Follower</option>
+          </select>
+        </label>
+
+        <label class="select">
+          <span>Max. Schwierigkeit</span>
+          <select id="difficultyFilter">
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+        </label>
+
+        <button id="resetFilters" class="ghost">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-title">Baum</div>
+        <div class="progress">
+          <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+          <div id="progressText" class="progress-text">0/0 abgeschlossen</div>
+        </div>
+      </div>
+
+      <div id="tree" class="tree" role="tree" aria-label="Skill-Tree"></div>
+
+      <div class="sidebar-foot">
+        <div class="small muted">
+          Tipp: Klick auf einen Knoten zeigt Details. Häkchen setzt „abgeschlossen“ (lokal gespeichert).
+        </div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div id="emptyState" class="card empty">
+        <h2>Wähle ein Element aus dem Baum</h2>
+        <p>
+          Diese erste Version ist bewusst schlank: Tree-View, Suche/Filter, Detailansicht und lokales Fortschritts-Tracking.
+          Erweitere anschließend Daten (Knoten) und Videos.
+        </p>
+        <div class="actions">
+          <button id="expandAll" class="primary">Alle aufklappen</button>
+          <button id="collapseAll" class="ghost">Alle zuklappen</button>
+        </div>
+      </div>
+
+      <article id="detail" class="card detail hidden" aria-live="polite">
+        <div class="detail-head">
+          <div>
+            <h2 id="detailTitle"></h2>
+            <div class="meta">
+              <span id="detailCategory" class="pill"></span>
+              <span id="detailRole" class="pill"></span>
+              <span id="detailDifficulty" class="pill"></span>
+            </div>
+          </div>
+          <div class="detail-actions">
+            <button id="toggleComplete" class="primary">Als abgeschlossen markieren</button>
+            <button id="copyLink" class="ghost">Link kopieren</button>
+          </div>
+        </div>
+
+        <div class="detail-body">
+          <section class="grid">
+            <div class="panel">
+              <h3>Ziel</h3>
+              <p id="detailGoal" class="muted"></p>
+            </div>
+
+            <div class="panel">
+              <h3>Voraussetzungen</h3>
+              <ul id="detailPrereq" class="list"></ul>
+            </div>
+          </section>
+
+          <section class="grid">
+            <div class="panel">
+              <h3>Key Cues</h3>
+              <ul id="detailCues" class="list"></ul>
+            </div>
+
+            <div class="panel">
+              <h3>Häufige Fehler & Fix</h3>
+              <ul id="detailFixes" class="list"></ul>
+            </div>
+          </section>
+
+          <section class="grid">
+            <div class="panel">
+              <h3>Drills</h3>
+              <ul id="detailDrills" class="list"></ul>
+            </div>
+
+            <div class="panel">
+              <h3>Tags</h3>
+              <div id="detailTags" class="tags"></div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <h3>Video</h3>
+            <div id="videoWrap" class="video-wrap">
+              <div class="video-placeholder">
+                <div class="muted">
+                  Füge pro Node eine Video-URL hinzu (YouTube Embed oder MP4). Siehe <code>data.js</code>.
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
+
+      <footer class="footer">
+        <div class="small muted">
+          © <span id="year"></span> — UrbanKiz Skill-Tree (MVP). Lokal gespeichert: Fortschritt im Browser (LocalStorage).
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
